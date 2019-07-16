@@ -1,0 +1,39 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title></title>
+	<script src="Scripts/jquery-3.4.1.js"></script>
+</head>
+<body>
+	<div>
+		<textarea id="textarea" cols="80" rows="25"></textarea>
+	</div>
+	<div>
+		<input id="chat" type="text" size="80"></input>
+		<button id="send">Send</button>
+	</div>
+	<script>
+		$(document).ready(function () {
+			window.socket = new WebSocket("ws://localhost");
+
+			window.socket.onerror = function (event) {
+			};
+
+			window.socket.onmessage = function (event) {
+				$("#textarea").append(event.data + "\n");
+			};
+
+			window.socket.onopen = function (event) {
+			};
+
+			window.socket.onclose = function (event) {
+			};
+
+			$("#send").on("click", function () {
+				window.socket.send($("#chat").val());
+			});
+		});
+	</script>
+</body>
+</html>
